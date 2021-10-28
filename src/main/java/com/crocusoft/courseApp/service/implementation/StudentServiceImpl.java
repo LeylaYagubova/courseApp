@@ -47,25 +47,24 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentDto updateStudent(Long id, StudentDto studentDto) {
-
+//studenti id-e gore tapiriq
         Student student = studentRepo.findById(id).orElseThrow(
                 () -> new RuntimeException("student with id:" + id + "  doesn't exist"));
 
-
+//gelen entity-e dto-u set edirik
         student.setName(studentDto.getName());
         student.setSurname(studentDto.getSurname());
         student.setEmail(studentDto.getEmail());
         student.setAddress(studentDto.getAddress());
 
-  //      Address address = studentDto.getAddress();
-//        address.setStudent(student);
-          //       studentRepo.save(student);
-
-
+//kurs uchun bir list yaradiriq
         List<Course> list= new ArrayList<>();
+
+//student dto-dan gelen kurs idlerin her birinin repoda varsa yaratdigimiz liste add edirik
         for (Long item : studentDto.getCourseIdList()) {
             list.add(courseRepo.findById(id).orElseThrow(() -> new RuntimeException("Course id not found")));
         }
+        //studenti update edib save olan studenti maplayib qaytaririq
         student.setCourses(list);
         return modelMapper.map(studentRepo.save(student), StudentDto.class);
     }
