@@ -1,15 +1,12 @@
 package com.crocusoft.courseApp.service.implementation;
 
-import com.crocusoft.courseApp.dto.AddressDto;
 import com.crocusoft.courseApp.dto.StudentDto;
-import com.crocusoft.courseApp.entity.Address;
 import com.crocusoft.courseApp.entity.Course;
 import com.crocusoft.courseApp.entity.Student;
 import com.crocusoft.courseApp.repository.CourseRepo;
 import com.crocusoft.courseApp.repository.StudentRepo;
 import com.crocusoft.courseApp.service.StudentService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -93,7 +90,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<StudentDto> getAllStudents() {
         List<Student> students = studentRepo.findAll();
-        List<StudentDto> studentDtos = students.stream().map(student -> modelMapper.map(student,StudentDto.class)).collect(Collectors.toList());
+        List<StudentDto> studentDtos = students
+                .stream()
+                .map(student -> modelMapper.map(student,StudentDto.class))
+                .collect(Collectors.toList());
        return studentDtos;
     }
 }

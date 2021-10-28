@@ -15,14 +15,14 @@ public class CourseController {
     final
     CourseService courseService;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<CourseDto> createCourse(@RequestBody CourseDto courseDto){
        CourseDto newCourse =  courseService.createCourse(courseDto);
         return ResponseEntity.ok(newCourse);
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<CourseDto>> getCourses(@RequestBody CourseDto courseDto){
+    @GetMapping
+    public ResponseEntity<List<CourseDto>> getCourses(){
         List<CourseDto> courses = courseService.getAllCourses();
         return ResponseEntity.ok(courses);
     }
@@ -41,7 +41,7 @@ public class CourseController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteCourse(@PathVariable("id") Long id){
-        Boolean status =courseService.deleteCourse(id);
+        Boolean status = courseService.deleteCourse(id);
         return ResponseEntity.ok(status);
     }
 }
