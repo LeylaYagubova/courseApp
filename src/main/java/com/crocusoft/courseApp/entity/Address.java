@@ -1,5 +1,6 @@
 package com.crocusoft.courseApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ public class Address {
     private String district;
 
     @OneToOne(mappedBy = "address")
+    @JsonBackReference
     private Student student;
 
 }

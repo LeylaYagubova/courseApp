@@ -1,6 +1,7 @@
 package com.crocusoft.courseApp.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.util.List;
 @Data
 public class Student {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String surname;
@@ -18,14 +19,16 @@ public class Student {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @JsonManagedReference
     private Address address;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
             @JoinTable(name = "students_courses",
             joinColumns = @JoinColumn(name = "student_id"),
                     inverseJoinColumns = @JoinColumn(name = "course_id")
             )
-    List<Courses> courses;
+    List<Course> courses;
+
 
 
 }
